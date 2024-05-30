@@ -24,4 +24,8 @@ class Board
     puts(grid.map { |x| x.join(' | ') })
     puts
   end
+
+  def length
+    pointer.size
+  end
 end
