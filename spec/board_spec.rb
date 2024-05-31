@@ -4,14 +4,18 @@ require './lib/board'
 
 # rubocop:disable Metrics/BlockLength
 describe Board do
-  describe '#change_state' do
-    subject(:board) { described_class.new }
-    let(:col) { 3 }
-    let(:symbol) { 'X' }
+  subject(:board) { described_class.new }
+  let(:col) { 3 }
+  let(:symbol) { 'X' }
 
+  describe '#change_state' do
     context 'when a valid move is made' do
       it 'decreases pointer p(col) by one' do
         expect { board.change_state(col, symbol) }.to change { board.pointer[col] }.by(-1)
+      end
+
+      it 'decreases @n_available_slots by one' do
+        expect { board.change_state(col, symbol) }.to change { board.n_available_slots }.by(-1)
       end
     end
 
@@ -34,6 +38,64 @@ describe Board do
       it 'raises an InvalidMoveError' do
         6.times { board.change_state(col, symbol) }
         expect { board.change_state(col, symbol) }.to raise_error(InvalidMoveError)
+      end
+    end
+
+    context 'when all columns are already full' do
+      before do
+        7.times do |col|
+          6.times { board.change_state(col, symbol) }
+        end
+      end
+      it 'raises an InvalidMoveError' do
+        expect { board.change_state(col, symbol) }.to raise_error(InvalidMoveError)
+      end
+
+      it '@n_available_slots is equal to zero' do
+        expect(board.n_available_slots).to eql(0)
+      end
+    end
+  end
+
+  describe '#winner_in_column?' do
+    context 'when there is an winner in a column' do
+      before do
+        4.times { board.change_state(col, symbol) }
+      end
+      it 'returns true ' do
+        expect(board.winner_in_column?(symbol)).to be true
+      end
+    end
+
+    # it 'returns false if it is in a row' do
+    #   expect(board.winner_in_column?(symbol)).to be false
+    # end
+    context 'when there is not an winner in a column' do
+      before do
+        2.times { board.change_state(col, symbol) }
+      end
+      it 'returns false' do
+        expect(board.winner_in_column?(symbol)).to be false
+      end
+    end
+  end
+
+  describe '#winner_in_row?' do
+    context 'when there is an winner in a row' do
+      before do
+        (2..5).each { |i| board.change_state(i, symbol) }
+      end
+      it 'returns true ' do
+        expect(board.winner_in_row?(symbol)).to be true
+      end
+    end
+
+    context 'when there is not an winner in a row' do
+      before do
+        (2..4).each { |i| board.change_state(i, symbol) }
+      end
+      it 'returns false' do
+        expect(board.winner_in_column?(symbol)).to be false
       end
     end
   end

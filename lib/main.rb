@@ -2,6 +2,7 @@
 
 require './lib/board'
 require './lib/player'
+require './lib/game'
 
 board = Board.new
 
@@ -13,9 +14,13 @@ board = Board.new
 # board.show
 #
 
-player = Player.new('andre', 'O')
+# player1 = Player.new('player 1', 'O')
+# player2 = Player.new('player 2', 'X')
 
-6.times do
-  player.make_move(board)
-  board.show
-end
+# game = Game.new(player1, player2)
+# game.run
+#
+# 3.times { board.change_state(5, 'O')}
+(1..4).each {|i| board.change_state(i, 'O') }
+board.show
+# p board.winner_in_column?('O')
