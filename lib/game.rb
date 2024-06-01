@@ -12,23 +12,27 @@ class Game
   end
 
   def run
-    final_message = ''
+    result = 0
     loop do
       show
 
       @current_player.make_move(@board)
 
-      break final_message = "Congratulations #{current_player_name}! You won!\n\n" if player_has_won?
-      break final_message = "It's a tie!\n\n" if tie?
+      break result = 2 if player_has_won?
+      break result = 1 if tie?
 
       switch_players!
     end
     show
-    puts final_message
+    final_message(result, current_player_name)
+  end
+
+  def final_message(result, current_player_name)
+    Display.final_message(result, current_player_name)
   end
 
   def show
-    Display.print_header
+    Display.header
     Display.show(@board.grid)
   end
 

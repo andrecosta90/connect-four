@@ -14,14 +14,15 @@ describe Game do
       allow(first_player).to receive(:make_move)
       allow(second_player).to receive(:make_move)
       allow(game).to receive(:show)
+      allow(game).to receive(:final_message)
     end
     context 'when the first player is the winner' do
       before do
         allow(game).to receive(:player_has_won?).and_return(true)
       end
       it 'prints a win message for the first player' do
-        expect(game).to receive(:puts).with("player I WINS!\n\n")
-        expect(game).not_to receive(:puts).with("It's a TIE!\n\n")
+        expect(game).to receive(:final_message).with(2, 'player I')
+        expect(game).not_to receive(:final_message).with(1, 'player I')
         game.run
       end
     end
@@ -31,8 +32,8 @@ describe Game do
         allow(game).to receive(:player_has_won?).and_return(false, true)
       end
       it 'prints a win message for the second playe' do
-        expect(game).to receive(:puts).with("player II WINS!\n\n")
-        expect(game).not_to receive(:puts).with("It's a TIE!\n\n")
+        expect(game).to receive(:final_message).with(2, 'player II')
+        expect(game).not_to receive(:final_message).with(1, 'player II')
         game.run
       end
     end
@@ -43,9 +44,9 @@ describe Game do
         allow(game).to receive(:tie?).and_return(false, true)
       end
       it 'prints a tie message' do
-        expect(game).not_to receive(:puts).with("player I WINS!\n\n")
-        expect(game).not_to receive(:puts).with("player II WINS!\n\n")
-        expect(game).to receive(:puts).with("It's a TIE!\n\n")
+        expect(game).not_to receive(:final_message).with(2, 'player I')
+        expect(game).not_to receive(:final_message).with(2, 'player II')
+        expect(game).to receive(:final_message).with(1, 'player II')
         game.run
       end
     end
@@ -56,10 +57,10 @@ describe Game do
         allow(game).to receive(:tie?).and_return(false, false, true)
       end
 
-      it 'does not print any win or tie message' do
-        expect(game).not_to receive(:puts).with("player I WINS!\n\n")
-        expect(game).not_to receive(:puts).with("player II WINS!\n\n")
-        expect(game).to receive(:puts).with("It's a TIE!\n\n").once
+      it 'does print tie message once' do
+        expect(game).not_to receive(:final_message).with(2, 'player I')
+        expect(game).not_to receive(:final_message).with(2, 'player II')
+        expect(game).to receive(:final_message).with(1, 'player I').once
         game.run
       end
     end
