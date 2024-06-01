@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './lib/board'
+
 class Game
   def initialize(first_player, second_player)
     @board = Board.new
@@ -11,23 +13,31 @@ class Game
   def run
     loop do
       @current_player.make_move(@board)
-      @board.show
-      break puts "#{@current_player.name} WINS!" if player_has_won?
+      show
+      break puts "#{current_player_name} WINS!" if player_has_won?
       break puts "It's a TIE!" if tie?
 
       switch_players!
     end
   end
 
-  private
-
-  def player_has_won?
-    false
+  def show
+    @board.show
   end
 
   def tie?
-    @board.n_available_slots.zero?
+    @board.tie?
   end
+
+  def player_has_won?
+    @board.winner?
+  end
+
+  def current_player_name
+    @current_player.name
+  end
+
+  private
 
   def switch_players!
     @index = 1 - @index
