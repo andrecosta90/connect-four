@@ -3,6 +3,8 @@
 require './lib/board'
 require './lib/display'
 
+# The Game class manages the Connect Four game flow, including player turns,
+# checking for a win or tie, and displaying the board and messages.
 class Game
   def initialize(first_player, second_player)
     @board = Board.new

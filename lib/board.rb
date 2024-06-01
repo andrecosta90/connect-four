@@ -2,6 +2,13 @@
 
 class InvalidMoveError < StandardError; end
 
+# This script defines a Connect Four game board class.
+#
+# The Board class provides the following functionalities:
+# - Initialize a game board with a 6x7 grid.
+# - Change the state of the board by placing a symbol in a specified column.
+# - Check for a winner with four consecutive symbols horizontally, vertically, or diagonally.
+# - Check for a tie when the board is full and there are no winners.
 class Board
   attr_reader :grid, :pointer, :n_available_slots, :n_columns, :n_rows
 
@@ -32,7 +39,6 @@ class Board
   end
 
   private
-
 
   def winner_in_column?(symbol)
     (0...n_columns).each do |col|

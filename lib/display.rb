@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# The Display class provides methods to render the Connect Four game board,
+# show various messages to players, and handle display-related functionalities.
 class Display
   def self.header
     system 'clear'
@@ -17,13 +19,12 @@ class Display
   def self.show(grid)
     # print_header
 
-    puts "|----+----+----+----+----+----+----|\n|  1 |  2 |  3 |  4 |  5 |  6 |  7 |\n|----+----+----+----+----+----+----|\n"
+    puts "|----+----+----+----+----+----+----|\n|  1 |  2 |  3 |  4 |  5 |  6 |  7 |"
+    puts "|----+----+----+----+----+----+----|\n"
 
     6.times do |row|
       print '|'
-      7.times do |col|
-        print " #{grid[row][col]} |"
-      end
+      7.times { |col| print " #{grid[row][col]} |" }
       puts
       puts '|----+----+----+----+----+----+----|' # unless row == 5
     end

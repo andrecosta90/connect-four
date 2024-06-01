@@ -61,3 +61,4 @@ describe Player do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

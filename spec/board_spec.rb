@@ -67,9 +67,6 @@ describe Board do
       end
     end
 
-    # it 'returns false if it is in a row' do
-    #   expect(board.winner_in_column?(symbol)).to be false
-    # end
     context 'when there is not an winner in a column' do
       before do
         2.times { board.change_state(col, symbol) }
@@ -128,3 +125,4 @@ describe Board do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
