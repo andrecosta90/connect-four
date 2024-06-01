@@ -8,7 +8,7 @@ class Board
   def initialize
     @n_columns = 7
     @n_rows = 6
-    @grid = Array.new(n_rows) { Array.new(n_columns, '_') }
+    @grid = Array.new(n_rows) { Array.new(n_columns, "\u{26AA}") }
     @pointer = Array.new(n_columns) { n_rows - 1 }
     @n_available_slots = n_rows * n_columns
   end
@@ -23,12 +23,6 @@ class Board
     @n_available_slots -= 1
   end
 
-  def show
-    puts
-    puts(grid.map { |x| x.join(' | ') })
-    puts
-  end
-
   def winner?(symbol)
     winner_in_row?(symbol) || winner_in_column?(symbol) || winner_in_diagonal?(symbol)
   end
@@ -38,6 +32,7 @@ class Board
   end
 
   private
+
 
   def winner_in_column?(symbol)
     (0...n_columns).each do |col|
@@ -69,8 +64,6 @@ class Board
 
     false
   end
-
-  private
 
   # Check descending diagonals (top-left to bottom-right)
   def winner_in_descending_diagonal?(symbol, row, col)

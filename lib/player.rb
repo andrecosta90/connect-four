@@ -22,7 +22,7 @@ class Player
     loop do
       puts "Waiting for #{name} ( #{symbol} ) :"
       col = select_candidate(board)
-      break if valid_movement?(col, board)
+      return { column: col } if valid_movement?(col, board)
 
       puts 'Invalid move! Try again!'
     end
@@ -31,7 +31,7 @@ class Player
   # private
 
   def select_candidate(_)
-    gets.to_i
+    gets.to_i - 1
   end
 end
 

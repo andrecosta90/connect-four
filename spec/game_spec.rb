@@ -20,8 +20,8 @@ describe Game do
         allow(game).to receive(:player_has_won?).and_return(true)
       end
       it 'prints a win message for the first player' do
-        expect(game).to receive(:puts).with('player I WINS!')
-        expect(game).not_to receive(:puts).with("It's a TIE!")
+        expect(game).to receive(:puts).with("player I WINS!\n\n")
+        expect(game).not_to receive(:puts).with("It's a TIE!\n\n")
         game.run
       end
     end
@@ -31,8 +31,8 @@ describe Game do
         allow(game).to receive(:player_has_won?).and_return(false, true)
       end
       it 'prints a win message for the second playe' do
-        expect(game).to receive(:puts).with('player II WINS!')
-        expect(game).not_to receive(:puts).with("It's a TIE!")
+        expect(game).to receive(:puts).with("player II WINS!\n\n")
+        expect(game).not_to receive(:puts).with("It's a TIE!\n\n")
         game.run
       end
     end
@@ -43,9 +43,9 @@ describe Game do
         allow(game).to receive(:tie?).and_return(false, true)
       end
       it 'prints a tie message' do
-        expect(game).not_to receive(:puts).with('player I WINS!')
-        expect(game).not_to receive(:puts).with('player II WINS!')
-        expect(game).to receive(:puts).with("It's a TIE!")
+        expect(game).not_to receive(:puts).with("player I WINS!\n\n")
+        expect(game).not_to receive(:puts).with("player II WINS!\n\n")
+        expect(game).to receive(:puts).with("It's a TIE!\n\n")
         game.run
       end
     end
@@ -57,9 +57,9 @@ describe Game do
       end
 
       it 'does not print any win or tie message' do
-        expect(game).not_to receive(:puts).with('player I WINS!')
-        expect(game).not_to receive(:puts).with('player II WINS!')
-        expect(game).to receive(:puts).with("It's a TIE!").once
+        expect(game).not_to receive(:puts).with("player I WINS!\n\n")
+        expect(game).not_to receive(:puts).with("player II WINS!\n\n")
+        expect(game).to receive(:puts).with("It's a TIE!\n\n").once
         game.run
       end
     end
