@@ -29,6 +29,16 @@ class Board
     puts
   end
 
+  def winner?(symbol)
+    winner_in_row?(symbol) || winner_in_column?(symbol) || winner_in_diagonal?(symbol)
+  end
+
+  def tie?
+    n_available_slots.zero?
+  end
+
+  private
+
   def winner_in_column?(symbol)
     (0...n_columns).each do |col|
       (0...(n_rows - 3)).each do |row|

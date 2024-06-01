@@ -57,13 +57,13 @@ describe Board do
     end
   end
 
-  describe '#winner_in_column?' do
+  describe '#winner?' do
     context 'when there is an winner in a column' do
       before do
         4.times { board.change_state(col, symbol) }
       end
       it 'returns true ' do
-        expect(board.winner_in_column?(symbol)).to be true
+        expect(board.winner?(symbol)).to be true
       end
     end
 
@@ -75,18 +75,16 @@ describe Board do
         2.times { board.change_state(col, symbol) }
       end
       it 'returns false' do
-        expect(board.winner_in_column?(symbol)).to be false
+        expect(board.winner?(symbol)).to be false
       end
     end
-  end
 
-  describe '#winner_in_row?' do
     context 'when there is an winner in a row' do
       before do
         (2..5).each { |i| board.change_state(i, symbol) }
       end
       it 'returns true ' do
-        expect(board.winner_in_row?(symbol)).to be true
+        expect(board.winner?(symbol)).to be true
       end
     end
 
@@ -95,12 +93,9 @@ describe Board do
         (2..4).each { |i| board.change_state(i, symbol) }
       end
       it 'returns false' do
-        expect(board.winner_in_column?(symbol)).to be false
+        expect(board.winner?(symbol)).to be false
       end
     end
-  end
-
-  describe '#winner_in_diagonal?' do
     context 'when there is an winner in a descending diagonal' do
       before do
         (0..3).each do |i|
@@ -108,7 +103,7 @@ describe Board do
         end
       end
       it 'returns true ' do
-        expect(board.winner_in_diagonal?(symbol)).to be true
+        expect(board.winner?(symbol)).to be true
       end
     end
 
@@ -117,7 +112,7 @@ describe Board do
         (2..4).each { |i| board.change_state(i, symbol) }
       end
       it 'returns false' do
-        expect(board.winner_in_diagonal?(symbol)).to be false
+        expect(board.winner?(symbol)).to be false
       end
     end
 
@@ -128,9 +123,8 @@ describe Board do
         end
       end
       it 'returns true ' do
-        expect(board.winner_in_diagonal?(symbol)).to be true
+        expect(board.winner?(symbol)).to be true
       end
     end
-
   end
 end
