@@ -42,6 +42,6 @@ class DumbPlayer < Player
 
   def select_candidate(board)
     sleep(1)
-    (0...board.n_columns).to_a.sample.sample
+    (0...board.n_columns).to_a.sample
   end
 end
