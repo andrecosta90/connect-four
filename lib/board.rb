@@ -29,10 +29,6 @@ class Board
     puts
   end
 
-  def length
-    pointer.size
-  end
-
   def winner_in_column?(symbol)
     (0...n_columns).each do |col|
       (0...(n_rows - 3)).each do |row|
@@ -50,6 +46,33 @@ class Board
         return true if row_segment.all?(symbol)
       end
     end
+    false
+  end
+
+  def winner_in_diagonal?(symbol)
+    (0..(n_rows - 4)).each do |row|
+      (0..(n_columns - 4)).each do |col|
+        return true if winner_in_descending_diagonal?(symbol, row,
+                                                      col) || winner_in_ascending_diagonal?(symbol, row, col)
+      end
+    end
+
+    false
+  end
+
+  private
+
+  # Check descending diagonals (top-left to bottom-right)
+  def winner_in_descending_diagonal?(symbol, row, col)
+    return true if (0..3).all? { |i| grid[row + i][col + i] == symbol }
+
+    false
+  end
+
+  # Check ascending diagonals (bottom-left to top-right)
+  def winner_in_ascending_diagonal?(symbol, row, col)
+    return true if (0..3).all? { |i| grid[n_rows - row - i - 1][col + i] == symbol }
+
     false
   end
 end

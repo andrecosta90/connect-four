@@ -21,6 +21,17 @@ board = Board.new
 # game.run
 #
 # 3.times { board.change_state(5, 'O')}
-(1..4).each {|i| board.change_state(i, 'O') }
+
+# (1..4).each {|i| board.change_state(i, 'O') }
+
+# (0..3).each do |i|
+#   (i + 1).times { board.change_state(3 - i, 'O') }
+# end
+
+(1..4).each do |i|
+  (i + 1).times { board.change_state(i, 'O') }
+end
+
+
 board.show
-# p board.winner_in_column?('O')
+p board.winner_in_diagonal?('O')

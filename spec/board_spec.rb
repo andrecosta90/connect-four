@@ -99,4 +99,38 @@ describe Board do
       end
     end
   end
+
+  describe '#winner_in_diagonal?' do
+    context 'when there is an winner in a descending diagonal' do
+      before do
+        (0..3).each do |i|
+          (i + 1).times { board.change_state(3 - i, symbol) }
+        end
+      end
+      it 'returns true ' do
+        expect(board.winner_in_diagonal?(symbol)).to be true
+      end
+    end
+
+    context 'when there is not an winner in a descending diagonal' do
+      before do
+        (2..4).each { |i| board.change_state(i, symbol) }
+      end
+      it 'returns false' do
+        expect(board.winner_in_diagonal?(symbol)).to be false
+      end
+    end
+
+    context 'when there is an winner in a ascending diagonal' do
+      before do
+        (0..3).each do |i|
+          (i + 1).times { board.change_state(i, symbol) }
+        end
+      end
+      it 'returns true ' do
+        expect(board.winner_in_diagonal?(symbol)).to be true
+      end
+    end
+
+  end
 end
