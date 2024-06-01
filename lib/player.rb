@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './lib/display'
+
 # Represents a player in a game.
 # Each player has a name, a symbol representing their marker on the board,
 # and a reference to the game board.
@@ -20,11 +22,11 @@ class Player
 
   def make_move(board)
     loop do
-      puts "Waiting for #{name} ( #{symbol} ) :"
+      Display.input_message(name, symbol)
       col = select_candidate(board)
       return { column: col } if valid_movement?(col, board)
 
-      puts 'Invalid move! Try again!'
+      Display.error_message
     end
   end
 

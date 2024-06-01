@@ -2,6 +2,7 @@
 
 require './lib/player'
 require './lib/board'
+require './lib/display'
 
 # rubocop:disable Metrics/BlockLength
 describe Player do
@@ -31,7 +32,8 @@ describe Player do
     describe '#make_move' do
       context 'when valid_movement? is false twice and true on the third attempt' do
         before do
-          allow(player).to receive(:puts)
+          allow(Display).to receive(:input_message)
+          allow(Display).to receive(:error_message)
           allow(player).to receive(:select_candidate)
           allow(player).to receive(:valid_movement?).and_return(false, false, true)
         end
@@ -44,7 +46,8 @@ describe Player do
 
       context 'when valid_movement? is true on the first attempt' do
         before do
-          allow(player).to receive(:puts)
+          allow(Display).to receive(:input_message)
+          allow(Display).to receive(:error_message)
           allow(player).to receive(:select_candidate)
 
           allow(player).to receive(:valid_movement?).and_return(true)
